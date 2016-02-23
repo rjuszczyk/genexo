@@ -13,15 +13,18 @@ public class Answer {
     private final boolean mIsCorrect;
     int mX;
     int mY;
+    int mX_initial;
+    int mY_initial;
     Texture mSprite;
     private float mAnimationSpeed = 1;
-
 
 
     public Answer(int startX, int startY, Texture sprite, boolean isCorrect) {
         mSprite = sprite;
         mX = startX;
         mY = PositionedTexture.screenHeight - startY - sprite.getHeight();
+        mX_initial = mX;
+        mY_initial = mY;
         mIsCorrect = isCorrect;
     }
 
@@ -44,6 +47,14 @@ public class Answer {
     }
 
     boolean isAnimating = false;
+
+    public void startAnimationIn() {
+        startAnimation(getPosition().add(0,PositionedTexture.screenHeight), getPosition(), MyGdxGame.ANIMATION_SPEED);
+    }
+
+    public void startAnimationOut() {
+        startAnimation(getPosition(), new Vector2((mX*0.7f+mX_initial*0.3f), mY - PositionedTexture.screenHeight), MyGdxGame.ANIMATION_SPEED);
+    }
 
     public void animate(float deltaTime) {
         if(isAnimating) {
@@ -75,14 +86,14 @@ public class Answer {
     public void startDrag(int dragX, int dragY) {
         mDragX_offset = mX - dragX;
         mDragY_offset = mY - dragY;
-        mDragX_start = mX;
-        mDragY_start = mY;
+        mDragX_start = mX_initial;
+        mDragY_start = mY_initial;
 
+        isAnimating = false;
         mIsDragging = true;
     }
 
     public void onDrag(int currentX, int currentY) {
-        isAnimating = false;
         if(mIsDragging) {
             mX = currentX + mDragX_offset;
             mY = currentY + mDragY_offset;
@@ -107,10 +118,14 @@ public class Answer {
 
     public Vector2 getPosition() {
         return new Vector2(mX, mY);
-
     }
 
-    public static interface EndDragCallback {
+    public void reset() {
+        mX = mX_initial;
+        mY = mY_initial;
+    }
+
+    public interface EndDragCallback {
         void onEndDrag(int endX, int endY);
     }
 }

@@ -16,41 +16,56 @@ import javax.xml.soap.Text;
 public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 	private OrthographicCamera cam;
 	private SpriteBatch batch;
-	Texture img;
+
+	public static final float ANIMATION_SPEED = 3;
+
+	int currentQuestion = 0;
+	Question[] mQuestions;
 	Baba baba;
-	List<Answer> answers = new ArrayList<Answer>();
+	List<Answer> answers;
+	private Question mLastQuestion;
+
+	Question getCurrentQuestion() {
+		return mQuestions[currentQuestion%mQuestions.length];
+	}
+	
 	List<PositionedTexture> mTextures = new ArrayList<PositionedTexture>();
 	DropBox dropBox;
+
+	void loadQuestion() {
+		mQuestions = new Question[] {
+				new Question("odp_1_a.png", "odp_1_b.png", "odp_1_c.png", "pytanie_1.png"),
+				new Question("odp_2_a.png", "odp_2_b.png", "odp_2_c.png", "pytanie_2.png"),
+				new Question("odp_3_a.png", "odp_3_b.png", "odp_3_c.png", "pytanie_3.png")
+		};
+
+
+	}
 
 	@Override
 	public void resize(int width, int height) {
 		super.resize(width, height);
 		cam.viewportWidth = 1200f;
 		cam.viewportHeight = 800f;
+
 		cam.update();
 	}
-
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
 
 		PositionedTexture.screenHeight = 800;
-		mTextures.add(new PositionedTexture("pytanie_1_label.jpg", 639,65));
-		mTextures.add(new PositionedTexture("multilac_logo.jpg", 39,28));
-		mTextures.add(new PositionedTexture("bottom.jpg", 0,578));
-
+		mTextures.add(new PositionedTexture("pytanie_bg.jpg", 0, 0));
+		loadQuestion();
 
 		baba = new Baba(
-				new PositionedTexture("baba_czeka.jpg", 48,230),
-				new PositionedTexture("baba_zadowolona.jpg", 6,188),
-				new PositionedTexture("baba_zla.jpg", 81,219)
+				new PositionedTexture("baba_czeka.png", 76,235),
+				new PositionedTexture("baba_dobra.png", 12,200),
+				new PositionedTexture("baba_zla.png", 87,225)
 		);
 
-		answers.add(new Answer(0, 0, img, false));
-		answers.add(new Answer(800, 0, img, false));
-		answers.add(new Answer(582,202, new Texture("pyt_1_a.png"), true));
-		dropBox = new DropBox(267,107,  new Texture("chmurka.jpg"));
+
+		dropBox = new DropBox(263,107,  new Texture("chmurka_shape.png"), new Texture("zla_odp.png"), new Texture("dobra_odp.png"));
 		Gdx.input.setInputProcessor(this);
 
 		cam = new OrthographicCamera(1200, 800);
@@ -62,27 +77,66 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 	public void render () {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		answers = getCurrentQuestion().getAnswers();
+		AnimatablePositionedTexture question = getCurrentQuestion().getQuestion();
+
 		batch.begin();
 		cam.update();
 
 		batch.setProjectionMatrix(cam.combined);
-		dropBox.draw(batch);
-		for(Answer answer : answers) {
-			answer.draw(batch);
-		}
+
 		for(PositionedTexture positionedTexture : mTextures) {
 			positionedTexture.draw(batch);
 		}
+
+		dropBox.draw(batch);
+		question.draw(batch);
+
+		float deltaTime = Gdx.graphics.getDeltaTime();
+		if(mLastQuestion!=null) {
+			if(mLastQuestion.isAnimating()) {
+				mLastQuestion.animate(deltaTime);
+				mLastQuestion.draw(batch);
+				if(!mLastQuestion.isAnimating()) {
+					mLastQuestion.reset();
+					mLastQuestion = null;
+				}
+			} else {
+			}
+		}
+		for(Answer answer : answers) {
+			answer.draw(batch);
+		}
+
 
 		baba.draw(batch);
 
 		batch.end();
 
 
-		float deltaTime = Gdx.graphics.getDeltaTime();
+
+		dropBox.isWrong((int) (deltaTime * 1000), new Runnable() {
+			@Override
+			public void run() {
+				baba.state = Baba.State.CZEKA;
+			}
+		});
+		dropBox.isGood((int) (deltaTime * 1000), new Runnable() {
+			@Override
+			public void run() {
+				getCurrentQuestion().startAnimationOut();
+				mLastQuestion = getCurrentQuestion();
+				currentQuestion++;
+				getCurrentQuestion().startAnimationIn();
+				dropBox.reset();
+				baba.state = Baba.State.CZEKA;
+			}
+		});
 		for(Answer answer : answers) {
 			answer.animate(deltaTime);
 		}
+		question.animate(deltaTime);
 	}
 
 	@Override
@@ -103,11 +157,19 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		Gdx.app.log("input", "touchDown");
+		if(dropBox.isWrong()) {
+			return false;
+		}
+
 		int x = (int) (((float)screenX/(float)Gdx.graphics.getWidth())* cam.viewportWidth);
 		int y = (int) ((1- ((float)screenY/(float)Gdx.graphics.getHeight()))* cam.viewportHeight);
+
+
+
 		for(Answer answer : answers) {
 			if (answer.contains(x,y)) {
 				answer.startDrag(x,y);
+				return false;
 			}
 		}
 		return false;
@@ -126,9 +188,11 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 						if (answer.isCorrect()) {
 							answer.startAnimation(answer.getPosition(), dropBox.getPosition(), 5f);
 							baba.state = Baba.State.ZADOWOLONA;
+							dropBox.setGood();
 						} else {
 							answer.startAnimation(answer.getPosition(), answer.getStartPosition(), 4f);
 							baba.state = Baba.State.ZLA;
+							dropBox.setWrong();
 						}
 
 
@@ -164,7 +228,6 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 
 	@Override
 	public void dispose() {
-		img.dispose();
 		super.dispose();
 	}
 }
