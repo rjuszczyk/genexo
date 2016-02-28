@@ -27,7 +27,7 @@ public abstract class BaseDialog extends DialogFragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        ButterKnife.bind(view);
+        ButterKnife.bind(mContentView);
         super.onViewCreated(view, savedInstanceState);
     }
 

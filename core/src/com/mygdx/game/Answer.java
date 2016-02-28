@@ -16,11 +16,13 @@ public class Answer {
     int mX_initial;
     int mY_initial;
     Texture mSprite;
+    Texture mSpriteSuccess;
     private float mAnimationSpeed = 1;
 
 
     public Answer(int startX, int startY, Texture sprite, boolean isCorrect) {
         mSprite = sprite;
+        mSpriteSuccess = new Texture("answer_tlo.png");
         mX = startX;
         mY = PositionedTexture.screenHeight - startY - sprite.getHeight();
         mX_initial = mX;
@@ -29,6 +31,9 @@ public class Answer {
     }
 
     public void draw(SpriteBatch batch) {
+        if(!showSpriteCOrrect) {
+            batch.draw(mSpriteSuccess, mX, mY);
+        }
         batch.draw(mSprite, mX, mY);
     }
 
@@ -120,9 +125,16 @@ public class Answer {
         return new Vector2(mX, mY);
     }
 
+    boolean showSpriteCOrrect = false;
+
+    public void showGood() {
+        showSpriteCOrrect = true;
+    }
+
     public void reset() {
         mX = mX_initial;
         mY = mY_initial;
+        showSpriteCOrrect = false;
     }
 
     public interface EndDragCallback {

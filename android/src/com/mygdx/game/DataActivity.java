@@ -29,10 +29,10 @@ import retrofit.Response;
  * Created by Radek on 2016-02-26.
  */
 public class DataActivity extends AppCompatActivity {
+    @OnClick(R.id.try_again)
+    void tryAgain(View v) {
 
-    @OnClick(R.id.start)
-    public void onStart(View view) {
-
+        loadDataAndStartNext();
     }
 
     @Override
@@ -41,6 +41,19 @@ public class DataActivity extends AppCompatActivity {
         setContentView(R.layout.dane_activity);
 
         ButterKnife.bind(this);
+
+
+        loadDataAndStartNext();
+    }
+
+    void onFail() {
+        findViewById(R.id.error_view).setVisibility(View.VISIBLE);
+        findViewById(R.id.loading_view).setVisibility(View.GONE);
+    }
+
+    void loadDataAndStartNext() {
+        findViewById(R.id.error_view).setVisibility(View.GONE);
+        findViewById(R.id.loading_view).setVisibility(View.VISIBLE);
 
 
         if(!SharedPreferencesUtils.isStoreIndexInserted(this)) {
@@ -82,7 +95,7 @@ public class DataActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Throwable t) {
-                    Log.d("response", "onFailure " + t.getMessage());
+                    onFail();
                 }
             });
         } else {
@@ -92,7 +105,8 @@ public class DataActivity extends AppCompatActivity {
 
     private void startNextActivity() {
 
-        Intent intent = new Intent(this, FormActivity.class);
+        Intent intent = new Intent(this, ZapraszamyActivity.class);
+        finish();
         startActivity(intent);
     }
 }

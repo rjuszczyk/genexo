@@ -18,6 +18,11 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 	private SpriteBatch batch;
 
 	public static final float ANIMATION_SPEED = 3;
+	Runnable mOnQuizEnd;
+	public MyGdxGame(Runnable onQuizEnd) {
+		mOnQuizEnd = onQuizEnd;
+	}
+
 
 	int currentQuestion = 0;
 	Question[] mQuestions;
@@ -34,12 +39,14 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 
 	void loadQuestion() {
 		mQuestions = new Question[] {
-				new Question("odp_1_a.png", "odp_1_b.png", "odp_1_c.png", "pytanie_1.png"),
-				new Question("odp_2_a.png", "odp_2_b.png", "odp_2_c.png", "pytanie_2.png"),
-				new Question("odp_3_a.png", "odp_3_b.png", "odp_3_c.png", "pytanie_3.png")
+				new Question("ans_1_a.png", "ans_1_b.png", "ans_1_c.png", "pytanie_1.png"),
+				new Question("ans_2_a.png", "ans_2_b.png", "ans_2_c.png", "pytanie_2.png"),
+				new Question("ans_3_a.png", "ans_3_b.png", "ans_3_c.png", "pytanie_3.png")
 		};
+	}
 
-
+	void onQuizEnd() {
+		mOnQuizEnd.run();
 	}
 
 	@Override
@@ -65,7 +72,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 		);
 
 
-		dropBox = new DropBox(263,107,  new Texture("chmurka_shape.png"), new Texture("zla_odp.png"), new Texture("dobra_odp.png"));
+		dropBox = new DropBox(263,107,  new Texture("chmurka_shape.png"), new Texture("zla_odp.png"), new Texture("answer_blue.png"));
 		Gdx.input.setInputProcessor(this);
 
 		cam = new OrthographicCamera(1200, 800);
@@ -109,12 +116,9 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 			answer.draw(batch);
 		}
 
-
 		baba.draw(batch);
 
 		batch.end();
-
-
 
 		dropBox.isWrong((int) (deltaTime * 1000), new Runnable() {
 			@Override
@@ -128,6 +132,10 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 				getCurrentQuestion().startAnimationOut();
 				mLastQuestion = getCurrentQuestion();
 				currentQuestion++;
+				if(currentQuestion==3) {
+					onQuizEnd();
+					return;
+				}
 				getCurrentQuestion().startAnimationIn();
 				dropBox.reset();
 				baba.state = Baba.State.CZEKA;
@@ -188,6 +196,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 						if (answer.isCorrect()) {
 							answer.startAnimation(answer.getPosition(), dropBox.getPosition(), 5f);
 							baba.state = Baba.State.ZADOWOLONA;
+							answer.showGood();
 							dropBox.setGood();
 						} else {
 							answer.startAnimation(answer.getPosition(), answer.getStartPosition(), 4f);

@@ -65,6 +65,10 @@ public class DropBox {
         counterGood = 2000;
     }
 
+    public boolean isGood() {
+        return counterGood>=0;
+    }
+
     public boolean isGood(long deltaTime, Runnable onTimeElapsed) {
         if(counterGood<0) {
             return false;
@@ -83,7 +87,7 @@ public class DropBox {
 
     public void draw(SpriteBatch batch) {
         if(isGood) {
-            batch.draw(mSpriteGood, mX-13, mY-15);
+            batch.draw(mSpriteGood, mX, mY);
             return;
         }
 
