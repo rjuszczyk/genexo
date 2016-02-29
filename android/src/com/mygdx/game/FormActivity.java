@@ -20,6 +20,7 @@ import com.mygdx.game.dialog.ChooseElementDialog;
 import com.mygdx.game.dialog.RegulaminDialog;
 import com.mygdx.game.model.Row;
 import com.mygdx.game.model.UserData;
+import com.mygdx.game.util.KeyboardUtil;
 
 import java.util.List;
 
@@ -102,6 +103,12 @@ public class FormActivity extends AppCompatActivity {
         setContentView(R.layout.form_activity);
 
         ButterKnife.bind(this);
+
+
+        KeyboardUtil keyboardUtil = new KeyboardUtil(this, findViewById(R.id.content));
+
+//enable it
+        keyboardUtil.enable();
 
         mMiasto.setEnabled(false);
         mApteka.setEnabled(false);

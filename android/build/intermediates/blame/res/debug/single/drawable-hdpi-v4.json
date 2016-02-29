@@ -12,24 +12,20 @@
         "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\res\\drawable-hdpi\\ic_launcher.png"
     },
     {
-        "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png",
-        "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\drawable-hdpi\\abc_textfield_activated_mtrl_alpha.9.png"
-    },
-    {
         "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_btn_check_to_on_mtrl_000.png",
         "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\drawable-hdpi\\abc_btn_check_to_on_mtrl_000.png"
     },
     {
-        "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_search_api_mtrl_alpha.png",
-        "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\drawable-hdpi\\abc_ic_search_api_mtrl_alpha.png"
+        "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png",
+        "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\drawable-hdpi\\abc_textfield_activated_mtrl_alpha.9.png"
     },
     {
         "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_spinner_mtrl_am_alpha.9.png",
         "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\drawable-hdpi\\abc_spinner_mtrl_am_alpha.9.png"
     },
     {
-        "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\zapraszamy.png",
-        "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\res\\drawable-hdpi\\zapraszamy.png"
+        "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_search_api_mtrl_alpha.png",
+        "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\drawable-hdpi\\abc_ic_search_api_mtrl_alpha.png"
     },
     {
         "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_btn_check_to_on_mtrl_015.png",
@@ -52,10 +48,6 @@
         "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\drawable-hdpi\\abc_textfield_default_mtrl_alpha.9.png"
     },
     {
-        "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\regulamin.png",
-        "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\res\\drawable-hdpi\\regulamin.png"
-    },
-    {
         "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_voice_search_api_mtrl_alpha.png",
         "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\drawable-hdpi\\abc_ic_voice_search_api_mtrl_alpha.png"
     },
@@ -66,10 +58,6 @@
     {
         "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png",
         "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\drawable-hdpi\\abc_cab_background_top_mtrl_alpha.9.png"
-    },
-    {
-        "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\background_expandable.png",
-        "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\res\\drawable-hdpi\\background_expandable.png"
     },
     {
         "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_list_focused_holo.9.png",
@@ -98,10 +86,6 @@
     {
         "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_commit_search_api_mtrl_alpha.png",
         "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\drawable-hdpi\\abc_ic_commit_search_api_mtrl_alpha.png"
-    },
-    {
-        "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\quiz.png",
-        "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\res\\drawable-hdpi\\quiz.png"
     },
     {
         "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_list_divider_mtrl_alpha.9.png",
@@ -148,14 +132,6 @@
         "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\drawable-hdpi\\abc_ic_menu_paste_mtrl_am_alpha.png"
     },
     {
-        "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\background.png",
-        "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\res\\drawable-hdpi\\background.png"
-    },
-    {
-        "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\genexo.png",
-        "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\res\\drawable-hdpi\\genexo.png"
-    },
-    {
         "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png",
         "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\drawable-hdpi\\abc_ic_menu_copy_mtrl_am_alpha.png"
     },
@@ -172,20 +148,8 @@
         "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\drawable-hdpi\\abc_ic_menu_selectall_mtrl_alpha.png"
     },
     {
-        "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\background_small.png",
-        "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\res\\drawable-hdpi\\background_small.png"
-    },
-    {
-        "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\multilac.png",
-        "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\res\\drawable-hdpi\\multilac.png"
-    },
-    {
         "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_switch_track_mtrl_alpha.9.png",
         "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\drawable-hdpi\\abc_switch_track_mtrl_alpha.9.png"
-    },
-    {
-        "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\uzupelnij_dane.png",
-        "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\res\\drawable-hdpi\\uzupelnij_dane.png"
     },
     {
         "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png",
