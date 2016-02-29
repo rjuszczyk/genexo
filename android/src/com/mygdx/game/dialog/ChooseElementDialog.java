@@ -56,6 +56,10 @@ public class ChooseElementDialog extends BaseDialog implements StoresRecyclerVie
     public void onRowSelected(Row row) {
     }
 
+    protected boolean isTwoLines() {
+        return false;
+    }
+
     public ChooseElementDialog()
     {
         super();
@@ -67,6 +71,7 @@ public class ChooseElementDialog extends BaseDialog implements StoresRecyclerVie
 
     @Override
     public int getLayoutId() {
+
         return R.layout.dialog_choose_element;
     }
 
@@ -136,6 +141,10 @@ public class ChooseElementDialog extends BaseDialog implements StoresRecyclerVie
                 @Override
                 public String getTextFromRow(Row row) {
                     return getRowText(row);
+                }
+
+                public boolean isTwoLinesAdapter() {
+                    return isTwoLines();
                 }
             };
 

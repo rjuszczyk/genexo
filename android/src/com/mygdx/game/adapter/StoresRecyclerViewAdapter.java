@@ -1,6 +1,7 @@
 package com.mygdx.game.adapter;
 
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,9 +57,18 @@ public abstract class StoresRecyclerViewAdapter extends RecyclerView.Adapter<Sto
         this.mOnItemClickListener = onItemClickListener;
     }
 
+
+    public boolean isTwoLinesAdapter() {
+        return false;
+    }
     @Override
     public StoreViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row, parent, false);
+        View v;
+        if(isTwoLinesAdapter()) {
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_two_lines, parent, false);
+        } else {
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row, parent, false);
+        }
         v.setOnClickListener(this);
         return new StoreViewHolder(v);
     }
@@ -69,6 +79,10 @@ public abstract class StoresRecyclerViewAdapter extends RecyclerView.Adapter<Sto
     public void onBindViewHolder(StoreViewHolder holder, int position) {
         Row store = mStores.get(position);
         holder.mStoreName.setText(getTextFromRow(store));
+
+        if(isTwoLinesAdapter()) {
+            holder.mSecondLine.setText(store.getUlica());
+        }
 
         holder.itemView.setTag(store);
     }
@@ -136,7 +150,9 @@ public abstract class StoresRecyclerViewAdapter extends RecyclerView.Adapter<Sto
         @Bind(R.id.name)
         public TextView mStoreName;
 
-
+        @Nullable
+        @Bind(R.id.secondLine)
+        public TextView mSecondLine;
         public StoreViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

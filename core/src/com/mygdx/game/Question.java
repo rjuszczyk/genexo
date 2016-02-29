@@ -16,11 +16,11 @@ public class Question {
     AnimatablePositionedTexture question;
     List<Answer> answers = new ArrayList<Answer>(3);
 
-    public Question(String ansA, String ansB, String ansC, String question) {
+    public Question(String ansA, String ansB, String ansC, String question, boolean a1, boolean a2, boolean a3) {
 
-        answerA = new Answer(576, 202, new Texture(ansA), true);
-        answerB = new Answer(522, 452, new Texture(ansB), false);
-        answerC = new Answer(839, 340, new Texture(ansC), false);
+        answerA = new Answer(576, 202, new Texture(ansA), a1);
+        answerB = new Answer(522, 452, new Texture(ansB), a2);
+        answerC = new Answer(839, 340, new Texture(ansC), a3);
 
         answers.add(answerA);
         answers.add(answerB);

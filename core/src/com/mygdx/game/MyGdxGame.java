@@ -3,24 +3,34 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.soap.Text;
 
 public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
+	private final Runnable mPlayNegative;
 	private OrthographicCamera cam;
 	private SpriteBatch batch;
+	private SpriteBatch batchLarge;
+	private OrthographicCamera camLarge;
 
 	public static final float ANIMATION_SPEED = 3;
 	Runnable mOnQuizEnd;
-	public MyGdxGame(Runnable onQuizEnd) {
+	Runnable mPlayPositive;
+	public MyGdxGame(Runnable onQuizEnd, Runnable playPositive, Runnable playNegative) {
 		mOnQuizEnd = onQuizEnd;
+		mPlayPositive = playPositive;
+		mPlayNegative = playNegative;
 	}
 
 
@@ -39,60 +49,112 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 
 	void loadQuestion() {
 		mQuestions = new Question[] {
-				new Question("ans_1_a.png", "ans_1_b.png", "ans_1_c.png", "pytanie_1.png"),
-				new Question("ans_2_a.png", "ans_2_b.png", "ans_2_c.png", "pytanie_2.png"),
-				new Question("ans_3_a.png", "ans_3_b.png", "ans_3_c.png", "pytanie_3.png")
+				new Question("ans_1_a.png", "ans_1_b.png", "ans_1_c.png", "pytanie_1.png", true, false, false),
+				new Question("ans_2_a.png", "ans_2_b.png", "ans_2_c.png", "pytanie_2.png", false, true, false),
+				new Question("ans_3_a.png", "ans_3_b.png", "ans_3_c.png", "pytanie_3.png", true, false, false)
 		};
 	}
 
 	void onQuizEnd() {
 		mOnQuizEnd.run();
 	}
+	int left = 0;
+	int top = 0;
 
 	@Override
 	public void resize(int width, int height) {
 		super.resize(width, height);
-		cam.viewportWidth = 1200f;
-		cam.viewportHeight = 800f;
+
+
+		cam.viewportWidth = 1280;
+		cam.viewportHeight = 800;
+		camLarge.viewportWidth = width;
+		camLarge.viewportHeight = height;
+		camLarge.position.set(camLarge.viewportWidth / 2f, camLarge.viewportHeight / 2f, 0);
 
 		cam.update();
-	}
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-
-		PositionedTexture.screenHeight = 800;
-		mTextures.add(new PositionedTexture("pytanie_bg.jpg", 0, 0));
-		loadQuestion();
-
-		baba = new Baba(
-				new PositionedTexture("baba_czeka.png", 76,235),
-				new PositionedTexture("baba_dobra.png", 12,200),
-				new PositionedTexture("baba_zla.png", 87,225)
-		);
-
-
-		dropBox = new DropBox(263,107,  new Texture("chmurka_shape.png"), new Texture("zla_odp.png"), new Texture("answer_blue.png"));
-		Gdx.input.setInputProcessor(this);
-
-		cam = new OrthographicCamera(1200, 800);
-		cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
-		cam.update();
+		camLarge.update();
 	}
 
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		answers = getCurrentQuestion().getAnswers();
+	private boolean m_fboEnabled = true;
+	private FrameBuffer m_fbo = null;
+	private TextureRegion m_fboRegion = null;
+	@Override
+	public void render() {
+		// | GL20.GL_DEPTH_BUFFER_BIT);
+
+		int width = Gdx.graphics.getWidth();
+		int height = Gdx.graphics.getHeight();
+
+		if(m_fboEnabled)      // enable or disable the supersampling
+		{
+			if(m_fbo == null)
+			{
+				// m_fboScaler increase or decrease the antialiasing quality
+
+				m_fbo = new FrameBuffer(Pixmap.Format.RGBA8888, (int)(1280), (int)(800), false);
+				m_fboRegion = new TextureRegion(m_fbo.getColorBufferTexture());
+				m_fboRegion.flip(false, true);
+			}
+
+			m_fbo.begin();
+			Gdx.gl.glClearColor(0,0,0,0);
+
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			// | GL20.GL_DEPTH_BUFFER_BIT);
+		}
+
+		// this is the main render function
+		renderToTexture();
+
+
+
+		if(m_fbo != null)
+		{
+			m_fbo.end();
+
+			Gdx.gl.glClearColor(1, 1, 1, 1);
+
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+			batchLarge.begin();
+
+
+
+			float ratio = 800f/1280f;
+			float height2 = width*ratio;
+			float y = height-height2;
+			y/=2;
+
+
+			float tr = width/(float)mTextBottom.getWidth();
+			float fh = mTextBottom.getHeight()* tr;
+
+
+			batchLarge.draw(mTextBottom,0,0, width, fh);
+			tr = width/(float)mTextTop.getWidth();
+			fh = mTextTop.getHeight()* tr;
+			batchLarge.draw(mTextTop,0,height-fh, width, fh);
+			batchLarge.draw(m_fboRegion, 0, y, width, height2);
+
+
+			batchLarge.end();
+		}
+	}
+
+	public void renderToTexture () {
+
+
+				answers = getCurrentQuestion().getAnswers();
 		AnimatablePositionedTexture question = getCurrentQuestion().getQuestion();
 
 		batch.begin();
 		cam.update();
+		camLarge.update();
 
 		batch.setProjectionMatrix(cam.combined);
-
+		batchLarge.setProjectionMatrix(camLarge.combined);
 		for(PositionedTexture positionedTexture : mTextures) {
 			positionedTexture.draw(batch);
 		}
@@ -146,6 +208,36 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 		}
 		question.animate(deltaTime);
 	}
+	Texture mTextTop;
+	Texture mTextBottom;
+	@Override
+	public void create () {
+		batch = new SpriteBatch();
+		batchLarge = new SpriteBatch();
+		PositionedTexture.screenHeight = 800;
+		mTextTop = new Texture("pytanie_bg_top.png");
+		mTextBottom = new Texture("pytanie_bg_bottom.jpg");
+		loadQuestion();
+
+		baba = new Baba(
+				new PositionedTexture("baba_czeka.png", 76,235),
+				new PositionedTexture("baba_dobra.png", 12,200),
+				new PositionedTexture("baba_zla.png", 87,225)
+		);
+
+		dropBox = new DropBox(263,107,  new Texture("chmurka_shape.png"), new Texture("zla_odp.png"), new Texture("answer_blue.png"));
+		Gdx.input.setInputProcessor(this);
+
+		cam = new OrthographicCamera(1200, 800);
+		camLarge = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
+		camLarge.position.set(camLarge.viewportWidth / 2f, camLarge.viewportHeight / 2f, 0);
+		cam.update();
+		camLarge.update();
+	}
+
+
+
 
 	@Override
 	public boolean keyDown(int keycode) {
@@ -169,10 +261,11 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 			return false;
 		}
 
-		int x = (int) (((float)screenX/(float)Gdx.graphics.getWidth())* cam.viewportWidth);
-		int y = (int) ((1- ((float)screenY/(float)Gdx.graphics.getHeight()))* cam.viewportHeight);
+//		int x = (int) (((float)screenX/(float)Gdx.graphics.getWidth())* cam.viewportWidth);
+//		int y = (int) ((1- ((float)screenY/(float)Gdx.graphics.getHeight()))* cam.viewportHeight);
 
-
+		int x=screenX;
+		int y=800-screenY;
 
 		for(Answer answer : answers) {
 			if (answer.contains(x,y)) {
@@ -186,8 +279,12 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		Gdx.app.log("input", "touchUp");
-		int x = (int) (((float)screenX/(float)Gdx.graphics.getWidth())* cam.viewportWidth);
-		int y = (int) ((1- ((float)screenY/(float)Gdx.graphics.getHeight()))* cam.viewportHeight);
+//		int x = (int) (((float)screenX/(float)Gdx.graphics.getWidth())* cam.viewportWidth);
+//		int y = (int) ((1- ((float)screenY/(float)Gdx.graphics.getHeight()))* cam.viewportHeight);
+
+		int x=screenX;
+		int y=800-screenY;
+
 		for(final Answer answer : answers) {
 			answer.onEndDrag(x,y, new Answer.EndDragCallback() {
 				@Override
@@ -198,10 +295,12 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 							baba.state = Baba.State.ZADOWOLONA;
 							answer.showGood();
 							dropBox.setGood();
+							mPlayPositive.run();
 						} else {
 							answer.startAnimation(answer.getPosition(), answer.getStartPosition(), 4f);
 							baba.state = Baba.State.ZLA;
 							dropBox.setWrong();
+							mPlayNegative.run();
 						}
 
 
@@ -217,8 +316,11 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		int x = (int) (((float)screenX/(float)Gdx.graphics.getWidth())* cam.viewportWidth);
-		int y = (int) ((1- ((float)screenY/(float)Gdx.graphics.getHeight()))* cam.viewportHeight);
+//		int x = (int) (((float)screenX/(float)Gdx.graphics.getWidth())* cam.viewportWidth);
+//		int y = (int) ((1- ((float)screenY/(float)Gdx.graphics.getHeight()))* cam.viewportHeight);
+		int x=screenX;
+		int y=800-screenY;
+
 		for(Answer answer : answers) {
 			answer.onDrag(x,y);
 		}

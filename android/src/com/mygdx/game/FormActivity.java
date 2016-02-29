@@ -185,6 +185,11 @@ public class FormActivity extends AppCompatActivity {
                 new ChooseElementDialog() {
 
                     @Override
+                    public boolean isTwoLines() {
+                        return true;
+                    }
+
+                    @Override
                     public String getRowText(Row row) {
                         return row.nazwa_apteki;
                     }

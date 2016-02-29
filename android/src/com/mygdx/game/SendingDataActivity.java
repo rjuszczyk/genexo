@@ -39,16 +39,12 @@ public class SendingDataActivity extends AppCompatActivity {
     }
 
     void onSuccess() {
-        findViewById(R.id.podium).setVisibility(View.VISIBLE);
-        findViewById(R.id.podium).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent startIntent = new Intent(SendingDataActivity.this, ZapraszamyActivity.class);
-                startIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(startIntent);
-            }
-        });
+        Intent startIntent = new Intent(SendingDataActivity.this, PodiumActivity.class);
+        startIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startIntent);
+
+        finish();
     }
 
     @Override

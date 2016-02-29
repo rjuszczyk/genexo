@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/podium_fs"
+        android:adjustViewBounds="true"
+        />
+
+    <ImageView
+        android:id="@+id/pudelko"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/pudelko_fs"
+        />
+
+    <ImageView
+        android:id="@+id/korona"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/korona_fs"
+        />
+
+    <ImageView
+        android:id="@+id/napis"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/napis_fs"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:src="@drawable/multilac_top_left"
+        android:adjustViewBounds="true"
+        />
+</FrameLayout>

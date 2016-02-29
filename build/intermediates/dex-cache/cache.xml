@@ -1,12 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" >
+<items version="2" />
 
-    <item
-        jar="C:\Users\Radek\Desktop\genexo\genexo\core\build\libs\core-1.0.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="9322ef7ea02a1b58e1eeb1ddd58312fcc76146e6">
-        <dex dex="C:\Users\Radek\Desktop\genexo\genexo\android\build\intermediates\pre-dexed\debug\core-1.0_43ff51b2a116977a8f5f6ce643aeb9684951c579.jar" />
-    </item>
-
-</items>

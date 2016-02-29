@@ -19,7 +19,7 @@
         android:theme="@style/GdxTheme" >
         <activity
             android:name="com.mygdx.game.AndroidLauncher"
-            android:label="@string/app_name" 
+            android:label="@string/app_name"
             android:screenOrientation="landscape"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
 
@@ -34,6 +34,8 @@
         </activity>
         <activity android:name=".FormActivity"
             android:screenOrientation="landscape"
+
+            android:windowSoftInputMode="adjustResize"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
         </activity>
 
@@ -48,6 +50,10 @@
         </activity>
 
         <activity android:name=".SendingDataActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
+        </activity>
+        <activity android:name=".PodiumActivity"
             android:screenOrientation="landscape"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
         </activity>

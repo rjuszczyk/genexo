@@ -8,7 +8,7 @@ import butterknife.ButterKnife.ViewBinder;
 public class SendingDataActivity$$ViewBinder<T extends com.mygdx.game.SendingDataActivity> implements ViewBinder<T> {
   @Override public void bind(final Finder finder, final T target, Object source) {
     View view;
-    view = finder.findRequiredView(source, 2131427432, "method 'tryAgain'");
+    view = finder.findRequiredView(source, 2131492968, "method 'tryAgain'");
     view.setOnClickListener(
       new butterknife.internal.DebouncingOnClickListener() {
         @Override public void doClick(

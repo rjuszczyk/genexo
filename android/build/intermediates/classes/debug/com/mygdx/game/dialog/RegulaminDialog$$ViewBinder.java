@@ -8,8 +8,8 @@ import butterknife.ButterKnife.ViewBinder;
 public class RegulaminDialog$$ViewBinder<T extends com.mygdx.game.dialog.RegulaminDialog> implements ViewBinder<T> {
   @Override public void bind(final Finder finder, final T target, Object source) {
     View view;
-    view = finder.findRequiredView(source, 2131427429, "field 'mWebView'");
-    target.mWebView = finder.castView(view, 2131427429, "field 'mWebView'");
+    view = finder.findRequiredView(source, 2131492965, "field 'mWebView'");
+    target.mWebView = finder.castView(view, 2131492965, "field 'mWebView'");
   }
 
   @Override public void unbind(T target) {

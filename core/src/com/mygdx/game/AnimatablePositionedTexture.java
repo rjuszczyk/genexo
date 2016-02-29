@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -10,6 +11,8 @@ public class AnimatablePositionedTexture extends PositionedTexture {
     int mX_initial;
     int mY_initial;
     private float mAnimationSpeed = 1;
+
+    public boolean isVisible2 = true;
 
     public AnimatablePositionedTexture(String file, int x, int y) {
         super(file, x, y);
@@ -38,6 +41,16 @@ public class AnimatablePositionedTexture extends PositionedTexture {
     public void startAnimationIn() {
         //startAnimation(getPosition(), getPosition().add(0,-screenHeight), 0.1f);
         startAnimation(getPosition().add(0, screenHeight), getPosition(), MyGdxGame.ANIMATION_SPEED);
+    }
+
+    public void startAnimationIn2() {
+        //startAnimation(getPosition(), getPosition().add(0,-screenHeight), 0.1f);
+        startAnimation(getPosition().add(0, screenHeight), getPosition(), 1);
+    }
+
+    public void startAnimationFromLeft() {
+        //startAnimation(getPosition(), getPosition().add(0,-screenHeight), 0.1f);
+        startAnimation(getPosition().add(screenWidth, 0), getPosition(), 1);
     }
 
     public void startAnimationOut() {

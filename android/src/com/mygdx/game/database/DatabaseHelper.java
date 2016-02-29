@@ -50,7 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static List<Row> rowsForPrzedstawiciel(String imie, String nazwisko, String miasto, Context context) {
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        return cupboard().withDatabase(db).query(Row.class).withSelection("imie_przedstawiciela LIKE ? and nazwisko_przedstawiciela LIKE ? and miasto LIKE ?", new String[]{imie, nazwisko, miasto}).groupBy("nazwa_apteki").list();
+        return cupboard().withDatabase(db).query(Row.class).withSelection("imie_przedstawiciela LIKE ? and nazwisko_przedstawiciela LIKE ? and miasto LIKE ?", new String[]{imie, nazwisko, miasto}).list();
     }
 
 
