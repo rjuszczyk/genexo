@@ -2332,7 +2332,7 @@ containing a value of this type.
         public static final int miasto=0x7f0c0072;
         public static final int middle=0x7f0c0030;
         public static final int mini=0x7f0c002e;
-        public static final int multilac=0x7f0c008d;
+        public static final int multilac=0x7f0c0090;
         public static final int multiply=0x7f0c0025;
         public static final int name=0x7f0c007d;
         public static final int nazwisko=0x7f0c0075;
@@ -2343,6 +2343,7 @@ containing a value of this type.
         public static final int parentPanel=0x7f0c0043;
         public static final int pin=0x7f0c001a;
         public static final int podium=0x7f0c0069;
+        public static final int progress_bar=0x7f0c008e;
         public static final int progress_circular=0x7f0c0006;
         public static final int progress_contianer=0x7f0c006f;
         public static final int progress_horizontal=0x7f0c0007;
@@ -2368,6 +2369,7 @@ containing a value of this type.
         public static final int search_voice_btn=0x7f0c0063;
         public static final int secondLine=0x7f0c007e;
         public static final int select_dialog_listview=0x7f0c0064;
+        public static final int send=0x7f0c008d;
         public static final int shortcut=0x7f0c004f;
         public static final int showCustom=0x7f0c0011;
         public static final int showHome=0x7f0c0012;
@@ -2392,6 +2394,7 @@ containing a value of this type.
         public static final int top=0x7f0c0024;
         public static final int topPanel=0x7f0c0044;
         public static final int try_again=0x7f0c0068;
+        public static final int try_send=0x7f0c008f;
         public static final int up=0x7f0c0009;
         public static final int useLogo=0x7f0c0014;
         public static final int view_offset_helper=0x7f0c000a;
@@ -2456,11 +2459,12 @@ containing a value of this type.
         public static final int notification_template_part_chronometer=0x7f03002d;
         public static final int notification_template_part_time=0x7f03002e;
         public static final int quiz_activity=0x7f03002f;
-        public static final int select_dialog_item_material=0x7f030030;
-        public static final int select_dialog_multichoice_material=0x7f030031;
-        public static final int select_dialog_singlechoice_material=0x7f030032;
-        public static final int support_simple_spinner_dropdown_item=0x7f030033;
-        public static final int zapraszamy_activity=0x7f030034;
+        public static final int resend_activity=0x7f030030;
+        public static final int select_dialog_item_material=0x7f030031;
+        public static final int select_dialog_multichoice_material=0x7f030032;
+        public static final int select_dialog_singlechoice_material=0x7f030033;
+        public static final int support_simple_spinner_dropdown_item=0x7f030034;
+        public static final int zapraszamy_activity=0x7f030035;
     }
     public static final class raw {
         public static final int brawo=0x7f050000;

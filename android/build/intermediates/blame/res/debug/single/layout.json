@@ -136,6 +136,10 @@
         "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\layout\\notification_template_big_media_narrow.xml"
     },
     {
+        "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\layout\\resend_activity.xml",
+        "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\res\\layout\\resend_activity.xml"
+    },
+    {
         "merged": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_item_layout.xml",
         "source": "C:\\Users\\Radek\\Documents\\Android\\genexo\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\layout\\abc_action_menu_item_layout.xml"
     },

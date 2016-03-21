@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.mygdx.game.model.NotSendUser;
 import com.mygdx.game.model.Row;
 
 import java.util.List;
@@ -22,10 +23,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         CupboardFactory.setCupboard(new CupboardBuilder().useAnnotations().build());
 
         cupboard().register(Row.class);
+        cupboard().register(NotSendUser.class);
     }
 
     public DatabaseHelper(Context context) {
-        super(context, "database.db", null, 1);
+        super(context, "database.db", null, 3);
     }
 
     @Override

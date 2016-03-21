@@ -22,6 +22,10 @@ public class RegulaminActivity extends AppCompatActivity {
             }
         });
         mWebView.setHorizontalScrollBarEnabled(false);
-        mWebView.loadUrl("http://pharmawayjn.nazwa.pl/MedycynaRodzinna/gardimax/regulamin.html");
+
+        mWebView.getSettings().setJavaScriptEnabled(true);
+
+        //mWebView.loadUrl("http://pharmawayjn.nazwa.pl/MedycynaRodzinna/gardimax/regulamin.html");
+        mWebView.loadUrl("https://docs.google.com/viewer?url=http://pharmawayjn.nazwa.pl/MedycynaRodzinna/gardimax/regulamin.pdf");
     }
 }

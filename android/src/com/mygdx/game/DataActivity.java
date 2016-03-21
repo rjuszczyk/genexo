@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.DbRepository;
 import com.mygdx.game.database.DatabaseHelper;
 import com.mygdx.game.dialog.ChooseElementDialog;
 import com.mygdx.game.model.Row;
@@ -41,7 +42,7 @@ public class DataActivity extends AppCompatActivity {
         setContentView(R.layout.dane_activity);
 
         ButterKnife.bind(this);
-
+        DbRepository.getDb(this);
 
         loadDataAndStartNext();
     }

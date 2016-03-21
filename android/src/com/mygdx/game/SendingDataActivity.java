@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.DbRepository;
 import com.mygdx.game.database.DatabaseHelper;
+import com.mygdx.game.model.NotSendUser;
 import com.mygdx.game.model.Row;
 import com.mygdx.game.model.UserData;
 
@@ -18,9 +20,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import nl.qbusict.cupboard.CupboardFactory;
 
 /**
  * Created by Radek on 2016-02-27.
@@ -30,12 +34,21 @@ public class SendingDataActivity extends AppCompatActivity {
 
     @OnClick(R.id.try_again)
     void tryAgain(View v) {
-        sendData(mUserData);
+        findViewById(R.id.error_view).setVisibility(View.GONE);
+        findViewById(R.id.loading_view).setVisibility(View.VISIBLE);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                sendData(mUserData);
+            }
+        }).start();
     }
 
     void onFail() {
         findViewById(R.id.error_view).setVisibility(View.VISIBLE);
         findViewById(R.id.loading_view).setVisibility(View.GONE);
+
+        
     }
 
     void onSuccess() {
@@ -56,6 +69,8 @@ public class SendingDataActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        findViewById(R.id.error_view).setVisibility(View.GONE);
+        findViewById(R.id.loading_view).setVisibility(View.VISIBLE);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -65,12 +80,13 @@ public class SendingDataActivity extends AppCompatActivity {
     }
 
     public void sendData(UserData userData) {
-        findViewById(R.id.error_view).setVisibility(View.GONE);
-        findViewById(R.id.loading_view).setVisibility(View.VISIBLE);
+
         Row row = userData.getRow();
         try {
+            String data_utworzenia = new Date().toString();
+
             sendData(userData.getImie(), userData.getNazwisko(), userData.getTelefon(), userData.getEmail(), userData.getCheck1(), userData.getCheck2(), userData.getCheck3(),
-                    row.nazwa_apteki, row.ulica, row.miasto, row.wojewodztwo, row.nazwisko_przedstawiciela, row.imie_przedstawiciela, row.rks_nazwisko, row.rks_imie);
+                    row.nazwa_apteki, row.ulica, row.miasto, row.wojewodztwo, row.nazwisko_przedstawiciela, row.imie_przedstawiciela, row.rks_nazwisko, row.rks_imie, data_utworzenia);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,22 +95,23 @@ public class SendingDataActivity extends AppCompatActivity {
 
 
     public void sendData(
-            String imie,
-            String nazwisko,
+            final String imie,
+            final String nazwisko,
 
-            String telefon,
-            String email,
-            String odp1,
-            String odp2,
-            String odp3,
-            String nazwa_apteki,
-            String ulica,
-            String miasto,
-            String wojewodztwo,
-            String nazwisko_przedstawiciela,
-            String imie_przedstawiciela,
-            String rks_nazwisko,
-            String rks_imie
+            final String telefon,
+            final String email,
+            final String odp1,
+            final String odp2,
+            final String odp3,
+            final String nazwa_apteki,
+            final String ulica,
+            final String miasto,
+            final String wojewodztwo,
+            final String nazwisko_przedstawiciela,
+            final String imie_przedstawiciela,
+            final String rks_nazwisko,
+            final String rks_imie,
+            final String data_utworzenia
 
 
     ) throws UnsupportedEncodingException {
@@ -149,6 +166,10 @@ public class SendingDataActivity extends AppCompatActivity {
                 + URLEncoder.encode(rks_imie, "UTF-8");
 
 
+
+        data += "&" + URLEncoder.encode("data_utworzenia", "UTF-8") + "="
+                + URLEncoder.encode(data_utworzenia, "UTF-8");
+
         String text = "";
         BufferedReader reader = null;
 
@@ -180,11 +201,70 @@ public class SendingDataActivity extends AppCompatActivity {
 
 
             text = sb.toString();
+            if(!"OK\n".equals(text)) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        NotSendUser notSendUser = getNotSendUser(imie, nazwisko, nazwa_apteki, ulica);
+
+                        if (notSendUser == null) {
+                            notSendUser = new NotSendUser();
+                            notSendUser.imie = imie;
+                            notSendUser.nazwisko = nazwisko;
+
+                            notSendUser.telefon = telefon;
+                            notSendUser.email = email;
+                            notSendUser.odp1 = odp1;
+                            notSendUser.odp2 = odp2;
+                            notSendUser.odp3 = odp3;
+                            notSendUser.nazwa_apteki = nazwa_apteki;
+                            notSendUser.ulica = ulica;
+                            notSendUser.miasto = miasto;
+                            notSendUser.wojewodztwo = wojewodztwo;
+                            notSendUser.nazwisko_przedstawiciela = nazwisko_przedstawiciela;
+                            notSendUser.imie_przedstawiciela = imie_przedstawiciela;
+                            notSendUser.rks_nazwisko = rks_nazwisko;
+                            notSendUser.rks_imie = rks_imie;
+                            notSendUser.data_utworzenia = data_utworzenia;
+                            notSendUser.save(SendingDataActivity.this);
+
+                        }
+                        onFail();
+                    }
+                });
+                return;
+            }
             Log.d("result", "r = " + text);
         } catch (Exception ex) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+
+                    NotSendUser notSendUser = getNotSendUser(imie, nazwisko, nazwa_apteki, ulica);
+
+                    if(notSendUser == null) {
+                        notSendUser = new NotSendUser();
+                        notSendUser.imie = imie;
+                        notSendUser.nazwisko = nazwisko;
+
+                        notSendUser.telefon = telefon;
+                        notSendUser.email = email;
+                        notSendUser.odp1 = odp1;
+                        notSendUser.odp2 = odp2;
+                        notSendUser.odp3 = odp3;
+                        notSendUser.nazwa_apteki = nazwa_apteki;
+                        notSendUser.ulica = ulica;
+                        notSendUser.miasto = miasto;
+                        notSendUser.wojewodztwo = wojewodztwo;
+                        notSendUser.nazwisko_przedstawiciela = nazwisko_przedstawiciela;
+                        notSendUser.imie_przedstawiciela = imie_przedstawiciela;
+                        notSendUser.rks_nazwisko = rks_nazwisko;
+                        notSendUser.rks_imie = rks_imie;
+                        notSendUser.data_utworzenia = data_utworzenia;
+                        notSendUser.save(SendingDataActivity.this);
+
+                    }
                     onFail();
                 }
             });
@@ -200,10 +280,20 @@ public class SendingDataActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                NotSendUser notSendUser = getNotSendUser(imie, nazwisko, nazwa_apteki, ulica);
+                if(notSendUser != null) {
+                    notSendUser.delete(SendingDataActivity.this);
+                }
                 onSuccess();
             }
         });
 
         return;
+    }
+
+    NotSendUser getNotSendUser(String imie, String nazwisko, String nazwa_apteki, String ulica) {
+        NotSendUser notSendUser = CupboardFactory.cupboard().withDatabase(DbRepository.getDb(SendingDataActivity.this)).query(NotSendUser.class).withSelection("imie = ? and nazwisko = ? and nazwa_apteki = ? and ulica = ?",
+                new String[]{imie,nazwisko, nazwa_apteki, ulica}).get();
+        return notSendUser;
     }
 }

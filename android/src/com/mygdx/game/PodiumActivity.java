@@ -62,6 +62,7 @@ public class PodiumActivity extends AndroidApplication {
         click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent startIntent = new Intent(PodiumActivity.this, ZapraszamyActivity.class);
                 startIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -31,7 +31,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Błąd, sprawdź połączenie z internetem"
+            android:text="Błąd wysyłania danych na serwer, sprawdź połączenie z internetem"
             android:layout_margin="16dp"/>
         <Button
             android:id="@+id/try_again"
