@@ -36,10 +36,16 @@ public class DataActivity extends AppCompatActivity {
         loadDataAndStartNext();
     }
 
+    boolean update = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dane_activity);
+
+        if(getIntent() != null && getIntent().hasExtra("update")) {
+            update = getIntent().getBooleanExtra("update", false);
+        }
 
         ButterKnife.bind(this);
         DbRepository.getDb(this);
@@ -57,7 +63,7 @@ public class DataActivity extends AppCompatActivity {
         findViewById(R.id.loading_view).setVisibility(View.VISIBLE);
 
 
-        if(!SharedPreferencesUtils.isStoreIndexInserted(this)) {
+        if(!SharedPreferencesUtils.isStoreIndexInserted(this) || update) {
             Call<RowResponse> rowCall = MyRetrofit.getApi().rows();
             rowCall.enqueue(new Callback<RowResponse>() {
                 @Override
@@ -70,16 +76,23 @@ public class DataActivity extends AppCompatActivity {
 
                         SQLiteDatabase db = databaseHelper.getWritableDatabase();
                         db.beginTransaction();
+                        if(update) {
+                            db.delete(Row.class.getSimpleName(), "1", new String[]{});
+                        }
+
                         try {
                             for (Row row : rowResponse.getRows()) {
                                 row.save(db);
                             }
                             db.setTransactionSuccessful();
                         } catch (Exception e) {
-
                             e.printStackTrace();
                         } finally {
                             db.endTransaction();
+                        }
+
+                        if(update) {
+                            Toast.makeText(DataActivity.this, "Aktualizacja zakończona pomyślnie", Toast.LENGTH_SHORT).show();
                         }
                         SharedPreferencesUtils.setStoreIndexInserted(DataActivity.this, true);
                     }
@@ -96,6 +109,9 @@ public class DataActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Throwable t) {
+                    if(update) {
+                        Toast.makeText(DataActivity.this, "Aktualizacja nie powiodła się, spórbuj ponownie później", Toast.LENGTH_LONG).show();
+                    }
                     onFail();
                 }
             });
@@ -105,9 +121,16 @@ public class DataActivity extends AppCompatActivity {
     }
 
     private void startNextActivity() {
+        if(update) {
+            Intent intent = new Intent(this, ZapraszamyActivity.class);
+            finish();
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(this, FormActivity.class);
+            finish();
+            startActivity(intent);
 
-        Intent intent = new Intent(this, ZapraszamyActivity.class);
-        finish();
-        startActivity(intent);
+        }
+
     }
 }

@@ -27,6 +27,11 @@
             android:name="com.mygdx.game.DataActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.mygdx.game.StartActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

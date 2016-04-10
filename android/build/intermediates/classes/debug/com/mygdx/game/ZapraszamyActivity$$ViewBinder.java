@@ -8,8 +8,8 @@ import butterknife.ButterKnife.ViewBinder;
 public class ZapraszamyActivity$$ViewBinder<T extends com.mygdx.game.ZapraszamyActivity> implements ViewBinder<T> {
   @Override public void bind(final Finder finder, final T target, Object source) {
     View view;
-    view = finder.findRequiredView(source, 2131493007, "field 'trySendText' and method 'trySend'");
-    target.trySendText = finder.castView(view, 2131493007, "field 'trySendText'");
+    view = finder.findRequiredView(source, 2131493006, "field 'trySendText' and method 'trySend'");
+    target.trySendText = finder.castView(view, 2131493006, "field 'trySendText'");
     view.setOnClickListener(
       new butterknife.internal.DebouncingOnClickListener() {
         @Override public void doClick(
@@ -27,7 +27,7 @@ public class ZapraszamyActivity$$ViewBinder<T extends com.mygdx.game.ZapraszamyA
           target.dalej(p0);
         }
       });
-    view = finder.findRequiredView(source, 2131492984, "method 'regulamin'");
+    view = finder.findRequiredView(source, 2131492983, "method 'regulamin'");
     view.setOnClickListener(
       new butterknife.internal.DebouncingOnClickListener() {
         @Override public void doClick(

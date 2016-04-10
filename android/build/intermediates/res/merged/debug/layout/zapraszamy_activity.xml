@@ -13,12 +13,26 @@
             android:layout_marginLeft="30dp"
             android:src="@drawable/genexo"/>
 
-        <TextView
-            android:id="@+id/try_send"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_margin="16dp"/>
+            android:orientation="vertical"
+            android:layout_gravity="right">
+            <TextView
+                android:id="@+id/try_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_margin="16dp"/>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_margin="16dp"
+                android:text="Aktualizuj bazę danych"/>
+        </LinearLayout>
     </FrameLayout>
         <LinearLayout
             android:layout_width="wrap_content"
